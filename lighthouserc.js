@@ -4,7 +4,7 @@ module.exports = {
         url: [
           'https://www.elsevier.com', // First URL
           'https://www.elsevier.com/about', // Second URL
-          'https://www.elsevier.com/contact' // Third URL
+          'https://www.elsevier.com/support' // Third URL
         ],
         numberOfRuns: 1,
       },
