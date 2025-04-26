@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "lighthouserc.js",
   "scripts": {
-    "test:playwright": "playwright test"
+    "test:playwright": "playwright test",
+    "build": "echo 'Build script placeholder'"
   },
   "devDependencies": {
     "@playwright/test": "^1.37.0"
