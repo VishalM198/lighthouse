@@ -1,7 +1,7 @@
 module.exports = {
     ci: {
       collect: {
-        url: ['https://www.flipkart.com'],
+        url: ['https://www.elsevier.com'],
         numberOfRuns: 1,
       },
       assert: {
