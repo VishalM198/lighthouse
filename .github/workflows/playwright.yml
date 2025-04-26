@@ -32,3 +32,24 @@ jobs:
 
       - name: Run Playwright Tests
         run: npm run test:playwright
+        
+      - name: Upload Playwright Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-report
+          path: playwright-report/
+      - name: Add Playwright Report Link to Checks
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const artifactUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}/artifacts`;
+            const commentBody = `Playwright test report is available as an artifact. [Download the report here](${artifactUrl}).`;
+            await github.rest.checks.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              check_run_id: context.runId,
+              output: {
+                title: 'Playwright Report',
+                summary: commentBody
+              }
+            });
