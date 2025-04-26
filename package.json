@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "lighthouserc.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"Build script not yet implemented\""
   },
   "repository": {
     "type": "git",
@@ -18,3 +19,5 @@
   "homepage": "https://github.com/VishalM198/lighthouse#readme",
   "description": ""
 }
+
+
