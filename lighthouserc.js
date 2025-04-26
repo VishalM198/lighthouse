@@ -13,5 +13,8 @@ module.exports = {
       upload: {
         target: 'temporary-public-storage',
       },
+      status: {
+        context: 'LightHouse Report',
+      },
     },
   };
