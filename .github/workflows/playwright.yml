@@ -62,5 +62,3 @@ jobs:
             } else {
               console.log("No pull request context available.");
             }
-            env:
-                GITHUB_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
