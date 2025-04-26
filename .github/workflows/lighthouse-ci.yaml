@@ -39,8 +39,8 @@ jobs:
         run: lhci autorun
 
         env:
-          LHCI_GITHUB_TOKEN: ${{ secrets.LHCI_GITHUB_TOKEN }}
-          
+          LHCI_GITHUB_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
       - name: Upload Lighthouse Report
         uses: actions/upload-artifact@v4
         with:
