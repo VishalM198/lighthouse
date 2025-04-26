@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "lighthouserc.js",
   "scripts": {
-    "test:playwright": "playwright test",
+    "test:playwright": "npx playwright test",
     "build": "echo 'Build script placeholder'"
   },
   "devDependencies": {
