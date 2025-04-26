@@ -44,21 +44,27 @@ jobs:
           name: playwright-report
           path: playwright-report/
 
+      - name: Deploy Playwright Report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+            github_token: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+            publish_dir: playwright-report
+
       - name: Post Playwright Report Link as Comment
         if: github.event_name == 'pull_request' # Ensures it's only run for PRs
         uses: actions/github-script@v6
         with:
-          script: |
-            const artifactUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}/artifacts`;
-            const commentBody = `Playwright test report is available as an artifact. [Download the report here](${artifactUrl}).`;
-            const prNumber = context.payload.pull_request?.number;
-            if (prNumber) {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: prNumber,
-                body: commentBody
-              });
-            } else {
-              console.log("No pull request context available.");
-            }
+            script: |
+                const artifactUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}/artifacts`;
+                const commentBody = `Playwright test report is available as an artifact. [Download the report here](${artifactUrl}).`;
+                const prNumber = context.payload.pull_request?.number;
+                if (prNumber) {
+                    await github.rest.issues.createComment({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: prNumber,
+                    body: commentBody
+                    });
+                } else {
+                    console.log("No pull request context available.");
+                }
