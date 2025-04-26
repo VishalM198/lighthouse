@@ -9,9 +9,9 @@ on:
       - main
 
 permissions:
-  checks: write
-  issues: write        # Add this line to allow posting comments
-  pull_requests: write # Add this line to allow posting comments
+  checks: write       # Required for status checks (this part is correct)
+  issues: write       # Required to post comments on issues or PRs
+  contents: read      # Required to read the repository contents (if needed)
 
 jobs:
   test:
