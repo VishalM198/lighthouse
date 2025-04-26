@@ -1,7 +1,11 @@
 module.exports = {
     ci: {
       collect: {
-        url: ['https://www.elsevier.com'],
+        url: [
+          'https://www.elsevier.com', // First URL
+          'https://www.elsevier.com/about', // Second URL
+          'https://www.elsevier.com/contact' // Third URL
+        ],
         numberOfRuns: 1,
       },
       assert: {
@@ -14,7 +18,7 @@ module.exports = {
         target: 'temporary-public-storage',
       },
       status: {
-        context: 'LightHouse Report',
+        githubStatusContext: 'LightHouse Report',
       },
     },
   };
