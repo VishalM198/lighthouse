@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "main": "lighthouserc.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "echo \"Build script not yet implemented\""
+    "test:playwright": "npx playwright test",
+    "build": "echo 'Build script placeholder'"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.37.0"
   },
   "repository": {
     "type": "git",
@@ -17,7 +20,8 @@
     "url": "https://github.com/VishalM198/lighthouse/issues"
   },
   "homepage": "https://github.com/VishalM198/lighthouse#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "playwright": "^1.52.0"
+  }
 }
-
-
