@@ -10,6 +10,8 @@ on:
 
 permissions:
   checks: write
+  issues: write        # Add this line to allow posting comments
+  pull_requests: write # Add this line to allow posting comments
 
 jobs:
   test:
@@ -35,13 +37,13 @@ jobs:
 
       - name: Run Playwright Tests
         run: npm run test:playwright
-        
+
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4
         with:
           name: playwright-report
           path: playwright-report/
-          
+
       - name: Post Playwright Report Link as Comment
         uses: actions/github-script@v6
         with:
