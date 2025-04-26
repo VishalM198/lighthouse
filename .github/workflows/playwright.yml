@@ -41,18 +41,16 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report/
-      - name: Add Playwright Report Link to Checks
+          
+      - name: Post Playwright Report Link as Comment
         uses: actions/github-script@v6
         with:
           script: |
             const artifactUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}/artifacts`;
             const commentBody = `Playwright test report is available as an artifact. [Download the report here](${artifactUrl}).`;
-            await github.rest.checks.update({
+            await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              check_run_id: context.runId,
-              output: {
-                title: 'Playwright Report',
-                summary: commentBody
-              }
+              issue_number: context.payload.pull_request.number,
+              body: commentBody
             });
