@@ -9,4 +9,8 @@ export default defineConfig({
     viewport: { width: 1280, height: 720 },
     ignoreHTTPSErrors: true,
   },
+  reporter: [
+    // This will generate an HTML report in the 'playwright-report' folder
+    ['html', { outputFolder: 'playwright-report', open: 'never' }],
+  ],
 });
