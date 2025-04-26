@@ -9,9 +9,9 @@ on:
       - main
 
 permissions:
-  checks: write       # Required for status checks (this part is correct)
-  issues: write       # Required to post comments on issues or PRs
-  contents: read      # Required to read the repository contents (if needed)
+  issues: write
+  pull_requests: write
+  checks: write
 
 jobs:
   test:
@@ -45,14 +45,22 @@ jobs:
           path: playwright-report/
 
       - name: Post Playwright Report Link as Comment
+        if: github.event_name == 'pull_request' # Ensures it's only run for PRs
         uses: actions/github-script@v6
         with:
           script: |
             const artifactUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}/artifacts`;
             const commentBody = `Playwright test report is available as an artifact. [Download the report here](${artifactUrl}).`;
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.pull_request.number,
-              body: commentBody
-            });
+            const prNumber = context.payload.pull_request?.number;
+            if (prNumber) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body: commentBody
+              });
+            } else {
+              console.log("No pull request context available.");
+            }
+            env:
+                GITHUB_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
