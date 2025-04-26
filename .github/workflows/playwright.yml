@@ -38,11 +38,27 @@ jobs:
       - name: Run Playwright Tests
         run: npm run test:playwright
 
-      - name: Upload Playwright Report
+      - name: Create Playwright Test Report (ZIP)
+        run: zip -r playwright-report.zip playwright-report/
+
+      - name: Upload Playwright Report ZIP
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-report
-          path: playwright-report/
+          name: playwright-report-zip
+          path: playwright-report.zip
+
+      - name: Extract HTML Report from ZIP
+        run: |
+          mkdir -p extracted-report
+          unzip playwright-report.zip -d extracted-report
+          # Assuming the HTML report is named 'index.html' or adjust accordingly
+          mv extracted-report/path/to/index.html extracted-report/index.html
+
+      - name: Upload HTML Report to GitHub Pages (or Raw GitHub Content)
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-html-report
+          path: extracted-report/index.html
 
       - name: Post Playwright Report Link as Comment
         if: github.event_name == 'pull_request' # Ensures it's only run for PRs
@@ -50,7 +66,8 @@ jobs:
         with:
           script: |
             const artifactUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}/artifacts`;
-            const commentBody = `Playwright test report is available as an artifact. [Download the report here](${artifactUrl}).`;
+            const reportUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/raw/main/extracted-report/index.html`;  # Update with the correct URL
+            const commentBody = `Playwright test report is available. [View the report here](${reportUrl}).`;
             const prNumber = context.payload.pull_request?.number;
             if (prNumber) {
               await github.rest.issues.createComment({
